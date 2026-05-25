@@ -12,27 +12,22 @@ const App = (() => {
   }
 
   function bindEvents() {
-    // ログインボタン
     document.getElementById('login-btn').addEventListener('click', () => Auth.login());
 
-    // ログアウトボタン
     document.getElementById('logout-btn').addEventListener('click', () => {
       if (confirm('ログアウトしますか？')) Auth.logout();
     });
 
-    // タブ切り替え
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => switchTab(btn.dataset.tab));
     });
 
-    // チャット「戻る」ボタン
     document.getElementById('back-btn').addEventListener('click', () => Chat.backToSpaces());
   }
 
   function onLoginSuccess(profile) {
     showApp();
 
-    // アバター表示
     const avatarEl = document.getElementById('user-avatar');
     if (profile?.picture) {
       avatarEl.innerHTML = `<img src="${profile.picture}" alt="${profile.name || ''}">`;
@@ -41,7 +36,6 @@ const App = (() => {
       avatarEl.style.cssText = 'display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#007AFF;';
     }
 
-    // カレンダーを最初に読み込む
     if (!calendarLoaded) {
       Calendar.load();
       calendarLoaded = true;
@@ -52,17 +46,14 @@ const App = (() => {
     if (currentTab === tabName) return;
     currentTab = tabName;
 
-    // タブボタンの状態更新
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.tab === tabName);
     });
 
-    // コンテンツ切り替え
     document.querySelectorAll('.tab-content').forEach(content => {
       content.classList.toggle('active', content.id === `${tabName}-tab`);
     });
 
-    // ヘッダーテキスト更新
     const titles = {
       calendar: { title: 'カレンダー', subtitle: `今後${CONFIG.CALENDAR_DAYS_AHEAD}日間の予定` },
       chat: { title: 'チャット', subtitle: 'Google Chat' },
@@ -71,7 +62,6 @@ const App = (() => {
     document.getElementById('header-title').textContent = t.title;
     document.getElementById('header-subtitle').textContent = t.subtitle;
 
-    // 初回読み込み
     if (tabName === 'chat' && !chatLoaded) {
       Chat.loadSpaces();
       chatLoaded = true;
@@ -89,7 +79,6 @@ const App = (() => {
     calendarLoaded = false;
     chatLoaded = false;
     currentTab = 'calendar';
-    // タブをリセット
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.tab === 'calendar');
     });
@@ -101,5 +90,4 @@ const App = (() => {
   return { init, onLoginSuccess, showLogin, showApp };
 })();
 
-// DOM準備完了後に起動
 document.addEventListener('DOMContentLoaded', () => App.init());

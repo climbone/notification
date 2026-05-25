@@ -130,7 +130,6 @@ const Chat = (() => {
       container.appendChild(createMessageItem(msg));
     });
 
-    // 最新メッセージまでスクロール
     container.scrollTop = container.scrollHeight;
   }
 

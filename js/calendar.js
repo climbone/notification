@@ -2,7 +2,6 @@
  * Google Calendar API モジュール
  */
 const Calendar = (() => {
-  // Google Calendar の色マッピング
   const CALENDAR_COLORS = {
     '1': '#AC725E', '2': '#D06B64', '3': '#F83A22',
     '4': '#FA573C', '5': '#FF7537', '6': '#FFAD46',
@@ -59,7 +58,6 @@ const Calendar = (() => {
       return;
     }
 
-    // 日付でグループ化
     const grouped = {};
     events.forEach(event => {
       const dateKey = event.start.date || event.start.dateTime?.slice(0, 10);
