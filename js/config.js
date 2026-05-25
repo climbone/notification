@@ -15,8 +15,7 @@
  * - Google Chat API
  */
 const CONFIG = {
-  // ← ここにGoogle Cloud ConsoleのクライアントIDを貼り付ける
-  CLIENT_ID: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+  CLIENT_ID: '229119775387-478telmb1u91282fs6hd8t5b2i0nbf4q.apps.googleusercontent.com',
 
   SCOPES: [
     'https://www.googleapis.com/auth/calendar.readonly',
