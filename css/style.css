@@ -1,31 +1,27 @@
 /* ===================================================
-   木目調ダッシュボード — 変数定義
+   変数
 =================================================== */
 :root {
-  /* 木目カラー */
-  --wood-base:   #1E0D02;
-  --wood-mid:    #2C1507;
-  --wood-light:  #3D200C;
-  --panel-l:     #241008;
-  --panel-r:     #1A0B03;
+  --wood-base:   #1C0C02;
+  --panel-l:     #221006;
+  --panel-r:     #180A02;
   --amber:       #D4820A;
   --amber-glow:  #F5A020;
   --amber-dim:   rgba(212,130,10,0.18);
-  --cream:       #F0DEB0;
+  --cream:       #EED8A8;
   --text-sub:    #8A6840;
   --text-dim:    #4A3018;
   --border-w:    rgba(180,110,20,0.30);
 
-  /* パタパタ時計 */
-  --fu-h:    76px;   /* カード高さ */
-  --fu-w:    58px;   /* カード幅 */
-  --fu-half: 38px;   /* 半分 */
-  --fu-fs:   52px;   /* フォントサイズ */
-  --fu-lh:   76px;   /* line-height (= fu-h) */
-  --fu-bg:   #170900;
-  --fu-bg2:  #110700;
+  /* パタパタ時計サイズ (大きめ) */
+  --fu-w:    72px;
+  --fu-h:    96px;
+  --fu-half: 48px;
+  --fu-fs:   62px;   /* フォントサイズ */
+  --fu-lh:   96px;   /* line-height = カード全高 */
+  --fu-bg:   #150900;
+  --fu-bg2:  #100600;
 
-  /* Safe area */
   --st: env(safe-area-inset-top,    0px);
   --sb: env(safe-area-inset-bottom, 0px);
   --sl: env(safe-area-inset-left,   0px);
@@ -35,79 +31,59 @@
   --font-ui:   -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
 }
 
-/* ===== リセット ===== */
-*, *::before, *::after {
-  box-sizing: border-box; margin: 0; padding: 0;
-  -webkit-tap-highlight-color: transparent;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html, body { width: 100%; height: 100%; overflow: hidden; -webkit-font-smoothing: antialiased; }
 
-/* ===== 木目背景（CSS SVG feTurbulence）===== */
+/* ===================================================
+   木目背景 — CSS SVG feTurbulence
+=================================================== */
 body {
   font-family: var(--font-ui);
   background-color: var(--wood-base);
   background-image:
-    /* SVG feTurbulence で木目ノイズ */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400'%3E%3Cfilter id='wg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.55' numOctaves='5' seed='8' stitchTiles='stitch' result='n'/%3E%3CfeColorMatrix type='matrix' in='n' values='0 0 0 0 0.12 0 0 0 0 0.05 0 0 0 0 0.00 0 0 0 18 -6'/%3E%3C/filter%3E%3Crect width='600' height='400' filter='url(%23wg)'/%3E%3C/svg%3E"),
-    /* 色調グラデーション */
-    linear-gradient(175deg, #2C1507 0%, #1A0A02 40%, #281406 70%, #1E0D03 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400'%3E%3Cfilter id='wg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.55' numOctaves='5' seed='8' stitchTiles='stitch' result='n'/%3E%3CfeColorMatrix type='matrix' in='n' values='0 0 0 0 0.11 0 0 0 0 0.045 0 0 0 0 0.00 0 0 0 18 -6'/%3E%3C/filter%3E%3Crect width='600' height='400' filter='url(%23wg)'/%3E%3C/svg%3E"),
+    linear-gradient(175deg, #2A1306 0%, #180A02 40%, #241205 70%, #1C0C03 100%);
   background-size: 600px 400px, cover;
 }
 
-/* ===== Screens ===== */
 .screen { position: fixed; inset: 0; display: none; }
 .screen.active { display: flex; }
 
 /* ===================================================
-   ログイン画面
+   ログイン
 =================================================== */
-#login-screen {
-  align-items: center;
-  justify-content: center;
-}
+#login-screen { align-items: center; justify-content: center; }
 
 .login-box {
   text-align: center;
   padding: 44px 56px;
-  background: rgba(30,13,2,0.82);
+  background: rgba(28,12,2,0.85);
   border: 1px solid var(--border-w);
   border-radius: 12px;
-  box-shadow:
-    0 10px 40px rgba(0,0,0,0.7),
-    inset 0 1px 0 rgba(212,130,10,0.25);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(212,130,10,0.25);
   animation: fadeUp .45s ease;
 }
-
 .login-title {
   font-family: var(--font-mono);
-  font-size: 34px;
-  font-weight: 700;
-  letter-spacing: 8px;
+  font-size: 34px; font-weight: 700; letter-spacing: 8px;
   color: var(--amber-glow);
   text-shadow: 0 0 24px rgba(245,160,32,0.55);
   margin-bottom: 32px;
 }
-
 .google-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  display: inline-flex; align-items: center; gap: 10px;
   padding: 12px 28px;
   background: rgba(255,255,255,0.06);
   border: 1px solid var(--border-w);
   border-radius: 8px;
-  font-family: var(--font-ui);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--cream);
-  cursor: pointer;
-  transition: background .15s;
+  font-family: var(--font-ui); font-size: 15px; font-weight: 600;
+  color: var(--cream); cursor: pointer; transition: background .15s;
 }
 .google-btn:active { background: rgba(255,255,255,0.12); }
 .google-icon { width: 18px; height: 18px; flex-shrink: 0; }
 
 /* ===================================================
-   メイン画面レイアウト
+   メインレイアウト
 =================================================== */
 #app-screen {
   flex-direction: row;
@@ -115,41 +91,33 @@ body {
   padding: var(--st) var(--sr) var(--sb) var(--sl);
 }
 
-/* 左ペイン */
 .left-pane {
-  width: 42%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 10px 16px;
+  width: 44%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px;
+  padding: 10px 12px;
   position: relative;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cfilter id='wl'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015 0.6' numOctaves='4' seed='12' stitchTiles='stitch' result='n'/%3E%3CfeColorMatrix type='matrix' in='n' values='0 0 0 0 0.14 0 0 0 0 0.06 0 0 0 0 0.01 0 0 0 16 -5'/%3E%3C/filter%3E%3Crect width='400' height='300' filter='url(%23wl)'/%3E%3C/svg%3E"),
-    linear-gradient(180deg, #281308 0%, #1E0C04 50%, #241007 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cfilter id='wl'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015 0.6' numOctaves='4' seed='12' stitchTiles='stitch' result='n'/%3E%3CfeColorMatrix type='matrix' in='n' values='0 0 0 0 0.13 0 0 0 0 0.055 0 0 0 0 0.01 0 0 0 16 -5'/%3E%3C/filter%3E%3Crect width='400' height='300' filter='url(%23wl)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, #261106 0%, #1C0C04 50%, #221007 100%);
   background-size: 400px 300px, cover;
   background-color: var(--panel-l);
 }
 
-/* 仕切り線 */
 .divider {
-  width: 1px;
-  flex-shrink: 0;
+  width: 1px; flex-shrink: 0;
   background: linear-gradient(to bottom, transparent, var(--amber) 20%, var(--amber) 80%, transparent);
   opacity: 0.35;
 }
 
-/* 右ペイン */
 .right-pane {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: flex; flex-direction: column;
   padding: 12px 14px 10px;
   overflow: hidden;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cfilter id='wr'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.010 0.5' numOctaves='4' seed='5' stitchTiles='stitch' result='n'/%3E%3CfeColorMatrix type='matrix' in='n' values='0 0 0 0 0.10 0 0 0 0 0.04 0 0 0 0 0.00 0 0 0 16 -5'/%3E%3C/filter%3E%3Crect width='400' height='300' filter='url(%23wr)'/%3E%3C/svg%3E"),
-    linear-gradient(180deg, #1A0A02 0%, #160803 50%, #1C0C04 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cfilter id='wr'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.010 0.5' numOctaves='4' seed='5' stitchTiles='stitch' result='n'/%3E%3CfeColorMatrix type='matrix' in='n' values='0 0 0 0 0.09 0 0 0 0 0.038 0 0 0 0 0.00 0 0 0 16 -5'/%3E%3C/filter%3E%3Crect width='400' height='300' filter='url(%23wr)'/%3E%3C/svg%3E"),
+    linear-gradient(180deg, #180A02 0%, #140803 50%, #1A0B04 100%);
   background-size: 400px 300px, cover;
   background-color: var(--panel-r);
 }
@@ -160,173 +128,150 @@ body {
 .flip-clock {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 .flip-sep {
   font-family: var(--font-mono);
-  font-size: 48px;
-  font-weight: 700;
+  font-size: 52px; font-weight: 700;
   color: var(--amber);
   line-height: 1;
-  margin: 0 2px 6px;
-  text-shadow: 0 0 14px rgba(212,130,10,0.65);
+  margin: 0 3px 8px;
+  text-shadow: 0 0 16px rgba(212,130,10,0.7);
   animation: blink 1s step-end infinite;
+}
+
+/* ---- 葉っぱ形ラッパー (クリップ + グロー) ---- */
+.flip-wrap {
+  position: relative;
+  width: var(--fu-w);
+  height: var(--fu-h);
+  /*
+   * 葉っぱシルエット: 上下先端が尖った楽円形。
+   * path の座標は fu-w x fu-h のピクセル空間。
+   * M 36 0 = 上端中心，右カーブ、左カーブで木の葉形。
+   */
+  clip-path: path('M 36 0 C 72 14,72 82,36 96 C 0 82,0 14,36 0 Z');
+  /* 葉っぱの輪郭を緑色のドロップシャドウで表現—クリップ後に適用される */
+  filter:
+    drop-shadow(0 0 6px rgba(100,190,45,0.65))
+    drop-shadow(0 0 2px rgba(70,140,20,0.5));
 }
 
 /* ---- カード本体 ---- */
 .flip-unit {
-  width: var(--fu-w);
-  height: var(--fu-h);
+  width: 100%;
+  height: 100%;
   position: relative;
   perspective: 600px;
-  border-radius: 8px;
-  box-shadow:
-    0 5px 16px rgba(0,0,0,0.85),
-    inset 0 1px 0 rgba(255,200,80,0.08);
 }
 
-/* 上半分（現在の数字の上側）*/
+/* 上半分：現在数字の上側 */
 .fu-top {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: var(--fu-half);
   overflow: hidden;
   background: var(--fu-bg);
-  border-radius: 8px 8px 0 0;
   border-bottom: 1.5px solid #000;
-  /* 外枠 */
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.7);
 }
 .fu-top span {
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: 0;                    /* 上から配置 → 上半分が見える */
+  display: block; position: absolute;
+  width: 100%; top: 0;       /* 上から配置 → line-heightの上半が見える */
   font-family: var(--font-mono);
-  font-size: var(--fu-fs);
-  font-weight: 700;
-  line-height: var(--fu-lh); /* カード全高 = 数字が上下中央揃え */
+  font-size: var(--fu-fs); font-weight: 700;
+  line-height: var(--fu-lh);
   text-align: center;
   color: var(--amber-glow);
-  text-shadow: 0 0 16px rgba(245,160,32,0.75);
+  text-shadow: 0 0 18px rgba(245,160,32,0.8);
 }
 
-/* 下半分（現在の数字の下側）*/
+/* 下半分：現在数字の下側 */
 .fu-bot {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: var(--fu-half);
   overflow: hidden;
   background: var(--fu-bg2);
-  border-radius: 0 0 8px 8px;
-  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.6);
+  box-shadow: inset 0 -2px 5px rgba(0,0,0,0.7);
 }
 .fu-bot span {
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: calc(-1 * var(--fu-half)); /* 上に fu-half ずらす → 下半分が見える */
+  display: block; position: absolute;
+  width: 100%; top: calc(-1 * var(--fu-half));  /* fu-half みぎ上ずれ → 下半が見える */
   font-family: var(--font-mono);
-  font-size: var(--fu-fs);
-  font-weight: 700;
+  font-size: var(--fu-fs); font-weight: 700;
   line-height: var(--fu-lh);
   text-align: center;
   color: var(--amber-glow);
-  text-shadow: 0 0 16px rgba(245,160,32,0.75);
+  text-shadow: 0 0 18px rgba(245,160,32,0.8);
 }
 
-/* ---- フラップ（アニメーション用）---- */
-/* フラップ上：古い数字の上半分→折れて消える */
+/* フラップ上：古い数字上半 → 折れて消える */
 .fu-ft {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: var(--fu-half);
   overflow: hidden;
   background: var(--fu-bg);
-  border-radius: 8px 8px 0 0;
   border-bottom: 1.5px solid #000;
-  transform-origin: 50% 100%; /* 下端を軸に折れる */
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.7);
+  transform-origin: 50% 100%;
   z-index: 20;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
   backface-visibility: hidden;
 }
 .fu-ft span {
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: 0;
+  display: block; position: absolute;
+  width: 100%; top: 0;
   font-family: var(--font-mono);
-  font-size: var(--fu-fs);
-  font-weight: 700;
+  font-size: var(--fu-fs); font-weight: 700;
   line-height: var(--fu-lh);
   text-align: center;
   color: var(--amber-glow);
-  text-shadow: 0 0 16px rgba(245,160,32,0.75);
+  text-shadow: 0 0 18px rgba(245,160,32,0.8);
 }
 
-/* フラップ下：新しい数字の下半分→折れて現れる */
+/* フラップ下：新しい数字下半 → 折れて現れる */
 .fu-fb {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: var(--fu-half);
   overflow: hidden;
   background: var(--fu-bg2);
-  border-radius: 0 0 8px 8px;
-  transform-origin: 50% 0%; /* 上端を軸に折れる */
-  transform: rotateX(90deg); /* 初期状態：非表示 */
+  box-shadow: inset 0 -2px 5px rgba(0,0,0,0.7);
+  transform-origin: 50% 0%;
+  transform: rotateX(90deg); /* 初期：非表示 */
   z-index: 20;
-  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.6);
   backface-visibility: hidden;
 }
 .fu-fb span {
-  display: block;
-  position: absolute;
-  width: 100%;
-  top: calc(-1 * var(--fu-half));
+  display: block; position: absolute;
+  width: 100%; top: calc(-1 * var(--fu-half));
   font-family: var(--font-mono);
-  font-size: var(--fu-fs);
-  font-weight: 700;
+  font-size: var(--fu-fs); font-weight: 700;
   line-height: var(--fu-lh);
   text-align: center;
   color: var(--amber-glow);
-  text-shadow: 0 0 16px rgba(245,160,32,0.75);
+  text-shadow: 0 0 18px rgba(245,160,32,0.8);
 }
 
-/* アニメーション定義 */
-.fu-ft.flip {
-  animation: ftFlip 0.26s ease-in forwards;
-}
-.fu-fb.flip {
-  /* animation-fill-mode: both → 遅延中はfirst keyframe(90deg)を維持 */
-  animation: fbFlip 0.26s ease-out 0.24s both;
-}
+/* アニメーション */
+.fu-ft.flip { animation: ftFlip 0.27s ease-in  forwards; }
+.fu-fb.flip { animation: fbFlip 0.27s ease-out 0.25s both; }
 
 @keyframes ftFlip {
-  from { transform: rotateX(0deg); }
+  from { transform: rotateX(0deg);   }
   to   { transform: rotateX(-90deg); }
 }
 @keyframes fbFlip {
   from { transform: rotateX(90deg); }
-  to   { transform: rotateX(0deg); }
-}
-
-/* カード枠線オーバーレイ */
-.flip-unit::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  border: 1px solid rgba(180,110,20,0.35);
-  pointer-events: none;
-  z-index: 30;
+  to   { transform: rotateX(0deg);  }
 }
 
 /* ===== 日付 ===== */
 .clock-date {
   font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px; font-weight: 600;
   color: var(--text-sub);
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -334,78 +279,55 @@ body {
 
 /* ===== 天気 ===== */
 .weather-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
   padding: 10px 22px;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0,0.38);
   border: 1px solid var(--border-w);
   border-radius: 10px;
   box-shadow: inset 0 1px 0 rgba(180,110,20,0.15), 0 4px 12px rgba(0,0,0,0.5);
 }
-.weather-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.weather-row { display: flex; align-items: center; gap: 8px; }
 .weather-row span:first-child { font-size: 24px; }
 .weather-temp {
   font-family: var(--font-mono);
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 30px; font-weight: 700;
   color: var(--amber-glow);
   text-shadow: 0 0 12px rgba(245,160,32,0.5);
 }
 .weather-detail {
-  display: flex;
-  gap: 8px;
+  display: flex; gap: 8px;
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-sub);
-  letter-spacing: .5px;
+  font-size: 11px; color: var(--text-sub); letter-spacing: .5px;
 }
 
 /* ===== ログアウトボタン ===== */
 .logout-btn {
   position: absolute;
-  top: calc(var(--st) + 6px);
-  right: 10px;
+  top: calc(var(--st) + 6px); right: 10px;
   width: 28px; height: 28px;
   display: flex; align-items: center; justify-content: center;
   background: none; border: none; cursor: pointer;
-  color: var(--text-dim);
-  border-radius: 6px;
-  transition: color .15s;
+  color: var(--text-dim); border-radius: 6px; transition: color .15s;
 }
 .logout-btn:active { color: var(--text-sub); }
 .logout-btn svg { width: 15px; height: 15px; }
 
-/* ===== カレンダー右ペイン ===== */
+/* ===== カレンダーヘッダー ===== */
 .cal-date-label {
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-sub);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  padding-bottom: 7px;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-sub); letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 10px; padding-bottom: 7px;
   border-bottom: 1px solid var(--border-w);
 }
 
+/* ===== 状態表示 ===== */
 .state-view {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: var(--text-sub);
-  font-size: 13px;
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 10px; color: var(--text-sub); font-size: 13px;
 }
 .hidden { display: none !important; }
-
 .spinner {
   width: 22px; height: 22px;
   border: 2px solid var(--text-dim);
@@ -416,40 +338,72 @@ body {
 .empty-text { font-family: var(--font-mono); font-size: 12px; color: var(--text-sub); letter-spacing: 1px; }
 .retry-btn {
   padding: 7px 18px;
-  background: var(--amber-dim);
-  border: 1px solid var(--amber);
-  border-radius: 6px;
-  color: var(--amber);
-  font-family: var(--font-ui);
-  font-size: 12px; font-weight: 600;
-  cursor: pointer;
+  background: var(--amber-dim); border: 1px solid var(--amber);
+  border-radius: 6px; color: var(--amber);
+  font-family: var(--font-ui); font-size: 12px; font-weight: 600; cursor: pointer;
 }
 
-/* ===== イベントリスト ===== */
+/* ===================================================
+   イベントカード (丸太スタイル)
+
+   木の幹断面をイメージしたデザイン:
+   - 大きな border-radius で丸太の幋断面横方向を表現
+   - 偯心釦グラデーションで年輪を表現
+   - 木テクスチャーの横目が入った迗台素敏い色
+   - 冹色が濃い実り腐った木のエッジ
+=================================================== */
 .event-list {
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
+  flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  display: flex; flex-direction: column; gap: 8px;
   overscroll-behavior: contain;
 }
 
 .event-card {
   display: flex;
   align-items: stretch;
-  background: rgba(30,10,0,0.55);
-  border: .5px solid var(--border-w);
-  border-radius: 8px;
+  min-height: 56px;
+  border-radius: 28px;   /* 大きな丸み → 幹断面の圆さ */
   overflow: hidden;
-  min-height: 52px;
+  /* 幹断面の年輪: 中心が圆形ラディアルで公年輪参照 */
+  background:
+    repeating-radial-gradient(
+      ellipse at 16% 50%,
+      transparent         0px,
+      transparent         7px,
+      rgba(0,0,0,0.13)    7px,
+      rgba(0,0,0,0.13)    8px,
+      transparent         8px,
+      transparent         13px,
+      rgba(140,65,15,0.09) 13px,
+      rgba(140,65,15,0.09) 14px
+    ),
+    /* 木豊かなベース色: 横方向に村テクスチャー */
+    linear-gradient(
+      90deg,
+      #251008 0%,
+      #3C1C0A 18%,
+      #4E2A10 42%,
+      #3E1E0B 68%,
+      #2C1408 100%
+    );
+  border: 1.5px solid rgba(110,55,18,0.80);
+  /* 円柱形の影：上からの光で丸みが強調される */
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.70),
+    inset 0 2px 3px rgba(255,180,60,0.13),
+    inset 0 -3px 5px rgba(0,0,0,0.60);
   animation: fadeIn .2s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,200,80,0.04);
 }
-.event-bar  { width: 3px; flex-shrink: 0; }
+
+/* カラーマーカーバー: 丸太の左端に沖けるくさび */
+.event-bar {
+  width: 5px;
+  flex-shrink: 0;
+  border-radius: 28px 0 0 28px;
+}
+
 .event-body {
-  flex: 1; padding: 7px 11px;
+  flex: 1; padding: 8px 14px;
   display: flex; flex-direction: column; justify-content: center;
   gap: 2px; min-width: 0;
 }
@@ -459,28 +413,25 @@ body {
   color: var(--text-sub); letter-spacing: .4px;
 }
 .event-allday {
-  display: inline-block;
-  font-size: 9px; font-weight: 700;
+  display: inline-block; font-size: 9px; font-weight: 700;
   color: var(--amber); background: var(--amber-dim);
   padding: 1px 6px; border-radius: 100px;
   align-self: flex-start; letter-spacing: .4px;
 }
 .event-title {
-  font-size: 13px; font-weight: 600;
-  color: var(--cream);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  line-height: 1.3;
+  font-size: 13px; font-weight: 600; color: var(--cream);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3;
 }
 .event-loc {
   font-size: 10px; color: var(--text-sub);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
-/* ===== アニメーション ===== */
+/* ===== Animations ===== */
 @keyframes spin    { to { transform: rotate(360deg); } }
 @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeUp  { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
-@keyframes blink   { 0%,100%{opacity:1} 50%{opacity:0.25} }
+@keyframes blink   { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
 /* ===== 縦向き警告 ===== */
 @media (orientation: portrait) {

@@ -32,44 +32,48 @@
   <!-- メイン画面 -->
   <div id="app-screen" class="screen">
 
-    <!-- 左ペイン：時計 + 天気 -->
+    <!-- 左ペイン -->
     <div class="left-pane">
 
-      <!-- パタパタ時計 -->
+      <!-- パタパタ時計：.flip-wrapが葉っぱ形クリップ担当 -->
       <div class="flip-clock">
-        <!-- 時 -->
-        <div class="flip-unit" id="fu-h1">
-          <div class="fu-top"><span>0</span></div>
-          <div class="fu-bot"><span>0</span></div>
-          <div class="fu-ft"><span>0</span></div>
-          <div class="fu-fb"><span>0</span></div>
+        <div class="flip-wrap">
+          <div class="flip-unit" id="fu-h1">
+            <div class="fu-top"><span>0</span></div>
+            <div class="fu-bot"><span>0</span></div>
+            <div class="fu-ft"><span>0</span></div>
+            <div class="fu-fb"><span>0</span></div>
+          </div>
         </div>
-        <div class="flip-unit" id="fu-h2">
-          <div class="fu-top"><span>0</span></div>
-          <div class="fu-bot"><span>0</span></div>
-          <div class="fu-ft"><span>0</span></div>
-          <div class="fu-fb"><span>0</span></div>
+        <div class="flip-wrap">
+          <div class="flip-unit" id="fu-h2">
+            <div class="fu-top"><span>0</span></div>
+            <div class="fu-bot"><span>0</span></div>
+            <div class="fu-ft"><span>0</span></div>
+            <div class="fu-fb"><span>0</span></div>
+          </div>
         </div>
         <div class="flip-sep">:</div>
-        <!-- 分 -->
-        <div class="flip-unit" id="fu-m1">
-          <div class="fu-top"><span>0</span></div>
-          <div class="fu-bot"><span>0</span></div>
-          <div class="fu-ft"><span>0</span></div>
-          <div class="fu-fb"><span>0</span></div>
+        <div class="flip-wrap">
+          <div class="flip-unit" id="fu-m1">
+            <div class="fu-top"><span>0</span></div>
+            <div class="fu-bot"><span>0</span></div>
+            <div class="fu-ft"><span>0</span></div>
+            <div class="fu-fb"><span>0</span></div>
+          </div>
         </div>
-        <div class="flip-unit" id="fu-m2">
-          <div class="fu-top"><span>0</span></div>
-          <div class="fu-bot"><span>0</span></div>
-          <div class="fu-ft"><span>0</span></div>
-          <div class="fu-fb"><span>0</span></div>
+        <div class="flip-wrap">
+          <div class="flip-unit" id="fu-m2">
+            <div class="fu-top"><span>0</span></div>
+            <div class="fu-bot"><span>0</span></div>
+            <div class="fu-ft"><span>0</span></div>
+            <div class="fu-fb"><span>0</span></div>
+          </div>
         </div>
       </div>
 
-      <!-- 日付 -->
       <div class="clock-date" id="clock-date"></div>
 
-      <!-- 天気 -->
       <div class="weather-box">
         <div class="weather-row">
           <span id="w-icon">&#127774;</span>
@@ -81,7 +85,6 @@
         </div>
       </div>
 
-      <!-- ログアウト -->
       <button id="logout-btn" class="logout-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
@@ -91,10 +94,9 @@
       </button>
     </div>
 
-    <!-- 仕切り -->
     <div class="divider"></div>
 
-    <!-- 右ペイン：カレンダー -->
+    <!-- 右ペイン -->
     <div class="right-pane">
       <div class="cal-date-label" id="cal-date-label"></div>
       <div id="cal-loading" class="state-view"><div class="spinner"></div></div>
