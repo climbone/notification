@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Today">
-  <meta name="theme-color" content="#2C1A0E">
+  <meta name="theme-color" content="#1E0D02">
   <link rel="manifest" href="manifest.json">
   <title>Today</title>
   <link rel="stylesheet" href="css/style.css">
@@ -16,8 +16,7 @@
   <!-- ログイン画面 -->
   <div id="login-screen" class="screen active">
     <div class="login-box">
-      <div class="login-logo">&#128197;</div>
-      <h1 class="login-title">Today</h1>
+      <div class="login-title">TODAY</div>
       <button id="login-btn" class="google-btn">
         <svg class="google-icon" viewBox="0 0 24 24">
           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -39,15 +38,31 @@
       <!-- パタパタ時計 -->
       <div class="flip-clock">
         <!-- 時 -->
-        <div class="flip-group" id="flip-h">
-          <div class="flip-unit" id="flip-h1"><div class="card"><div class="top"><span></span></div><div class="bottom"><span></span></div><div class="flip-top"><span></span></div><div class="flip-bottom"><span></span></div></div></div>
-          <div class="flip-unit" id="flip-h2"><div class="card"><div class="top"><span></span></div><div class="bottom"><span></span></div><div class="flip-top"><span></span></div><div class="flip-bottom"><span></span></div></div></div>
+        <div class="flip-unit" id="fu-h1">
+          <div class="fu-top"><span>0</span></div>
+          <div class="fu-bot"><span>0</span></div>
+          <div class="fu-ft"><span>0</span></div>
+          <div class="fu-fb"><span>0</span></div>
+        </div>
+        <div class="flip-unit" id="fu-h2">
+          <div class="fu-top"><span>0</span></div>
+          <div class="fu-bot"><span>0</span></div>
+          <div class="fu-ft"><span>0</span></div>
+          <div class="fu-fb"><span>0</span></div>
         </div>
         <div class="flip-sep">:</div>
         <!-- 分 -->
-        <div class="flip-group" id="flip-m">
-          <div class="flip-unit" id="flip-m1"><div class="card"><div class="top"><span></span></div><div class="bottom"><span></span></div><div class="flip-top"><span></span></div><div class="flip-bottom"><span></span></div></div></div>
-          <div class="flip-unit" id="flip-m2"><div class="card"><div class="top"><span></span></div><div class="bottom"><span></span></div><div class="flip-top"><span></span></div><div class="flip-bottom"><span></span></div></div></div>
+        <div class="flip-unit" id="fu-m1">
+          <div class="fu-top"><span>0</span></div>
+          <div class="fu-bot"><span>0</span></div>
+          <div class="fu-ft"><span>0</span></div>
+          <div class="fu-fb"><span>0</span></div>
+        </div>
+        <div class="flip-unit" id="fu-m2">
+          <div class="fu-top"><span>0</span></div>
+          <div class="fu-bot"><span>0</span></div>
+          <div class="fu-ft"><span>0</span></div>
+          <div class="fu-fb"><span>0</span></div>
         </div>
       </div>
 
@@ -57,15 +72,17 @@
       <!-- 天気 -->
       <div class="weather-box">
         <div class="weather-row">
-          <span class="weather-icon" id="w-icon">&#127774;</span>
-          <span class="weather-temp" id="w-temp">--°</span>
+          <span id="w-icon">&#127774;</span>
+          <span class="weather-temp" id="w-temp">--&deg;</span>
         </div>
-        <div class="weather-humid"><span id="w-humid">湿度 --%</span></div>
-        <div class="weather-loc" id="w-loc"></div>
+        <div class="weather-detail">
+          <span id="w-humid">湿度 --%</span>
+          <span id="w-loc"></span>
+        </div>
       </div>
 
       <!-- ログアウト -->
-      <button id="logout-btn" class="logout-btn" title="ログアウト">
+      <button id="logout-btn" class="logout-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
           <polyline points="16 17 21 12 16 7"/>
@@ -79,7 +96,7 @@
 
     <!-- 右ペイン：カレンダー -->
     <div class="right-pane">
-      <div class="cal-header" id="cal-date-label"></div>
+      <div class="cal-date-label" id="cal-date-label"></div>
       <div id="cal-loading" class="state-view"><div class="spinner"></div></div>
       <div id="cal-error"   class="state-view hidden"><p id="cal-error-msg"></p><button class="retry-btn" onclick="loadCalendar()">再試行</button></div>
       <div id="cal-empty"   class="state-view hidden"><p class="empty-text">今日の予定はありません</p></div>
