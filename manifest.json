@@ -1,12 +1,12 @@
 {
-  "name": "My Dashboard",
-  "short_name": "Dashboard",
-  "description": "GoogleカレンダーとGoogle Chatをまとめて確認",
-  "start_url": "/",
+  "name": "TODAY",
+  "short_name": "TODAY",
+  "description": "今日のカレンダーとパタパタ時計",
+  "start_url": "/notification/",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#007AFF",
+  "orientation": "landscape-primary",
+  "background_color": "#1C0C02",
+  "theme_color": "#1E0D02",
   "icons": [
     {
       "src": "icons/icon-192.png",
