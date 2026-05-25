@@ -6,9 +6,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Today">
-  <meta name="theme-color" content="#0D0D12">
+  <meta name="theme-color" content="#2C1A0E">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <title>Today</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -16,10 +15,9 @@
 
   <!-- ログイン画面 -->
   <div id="login-screen" class="screen active">
-    <div class="login-container">
-      <div class="login-date" id="login-date"></div>
+    <div class="login-box">
+      <div class="login-logo">&#128197;</div>
       <h1 class="login-title">Today</h1>
-      <p class="login-sub">今日の予定をシンプルに</p>
       <button id="login-btn" class="google-btn">
         <svg class="google-icon" viewBox="0 0 24 24">
           <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -27,48 +25,74 @@
           <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
           <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
         </svg>
-        Googleでログイン
+        Google でログイン
       </button>
     </div>
   </div>
 
   <!-- メイン画面 -->
   <div id="app-screen" class="screen">
-    <header class="app-header">
-      <div class="header-date">
-        <span id="header-weekday"></span>
-        <span id="header-day"></span>
-      </div>
-      <div class="header-right">
-        <div id="user-avatar" class="user-avatar"></div>
-        <button id="logout-btn" class="icon-btn" title="ログアウト">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-            <polyline points="16 17 21 12 16 7"/>
-            <line x1="21" y1="12" x2="9" y2="12"/>
-          </svg>
-        </button>
-      </div>
-    </header>
 
-    <main class="app-content">
-      <div id="cal-loading" class="state-view">
-        <div class="spinner"></div>
+    <!-- 左ペイン：時計 + 天気 -->
+    <div class="left-pane">
+
+      <!-- パタパタ時計 -->
+      <div class="flip-clock">
+        <!-- 時 -->
+        <div class="flip-group" id="flip-h">
+          <div class="flip-unit" id="flip-h1"><div class="card"><div class="top"><span></span></div><div class="bottom"><span></span></div><div class="flip-top"><span></span></div><div class="flip-bottom"><span></span></div></div></div>
+          <div class="flip-unit" id="flip-h2"><div class="card"><div class="top"><span></span></div><div class="bottom"><span></span></div><div class="flip-top"><span></span></div><div class="flip-bottom"><span></span></div></div></div>
+        </div>
+        <div class="flip-sep">:</div>
+        <!-- 分 -->
+        <div class="flip-group" id="flip-m">
+          <div class="flip-unit" id="flip-m1"><div class="card"><div class="top"><span></span></div><div class="bottom"><span></span></div><div class="flip-top"><span></span></div><div class="flip-bottom"><span></span></div></div></div>
+          <div class="flip-unit" id="flip-m2"><div class="card"><div class="top"><span></span></div><div class="bottom"><span></span></div><div class="flip-top"><span></span></div><div class="flip-bottom"><span></span></div></div></div>
+        </div>
       </div>
-      <div id="cal-error" class="state-view hidden">
-        <p id="cal-error-msg"></p>
-        <button class="retry-btn" onclick="loadCalendar()">再試行</button>
+
+      <!-- 日付 -->
+      <div class="clock-date" id="clock-date"></div>
+
+      <!-- 天気 -->
+      <div class="weather-box">
+        <div class="weather-row">
+          <span class="weather-icon" id="w-icon">&#127774;</span>
+          <span class="weather-temp" id="w-temp">--°</span>
+        </div>
+        <div class="weather-humid"><span id="w-humid">湿度 --%</span></div>
+        <div class="weather-loc" id="w-loc"></div>
       </div>
-      <div id="cal-empty" class="state-view hidden">
-        <p class="empty-text">今日の予定はありません</p>
-      </div>
-      <div id="cal-list" class="event-grid hidden"></div>
-    </main>
+
+      <!-- ログアウト -->
+      <button id="logout-btn" class="logout-btn" title="ログアウト">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- 仕切り -->
+    <div class="divider"></div>
+
+    <!-- 右ペイン：カレンダー -->
+    <div class="right-pane">
+      <div class="cal-header" id="cal-date-label"></div>
+      <div id="cal-loading" class="state-view"><div class="spinner"></div></div>
+      <div id="cal-error"   class="state-view hidden"><p id="cal-error-msg"></p><button class="retry-btn" onclick="loadCalendar()">再試行</button></div>
+      <div id="cal-empty"   class="state-view hidden"><p class="empty-text">今日の予定はありません</p></div>
+      <div id="cal-list"    class="event-list hidden"></div>
+    </div>
+
   </div>
 
   <script src="https://accounts.google.com/gsi/client" async></script>
   <script src="js/config.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/clock.js"></script>
   <script src="js/calendar.js"></script>
   <script src="js/app.js"></script>
 </body>

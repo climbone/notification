@@ -2,8 +2,10 @@
  * メインコントローラー
  */
 const App = (() => {
+  const REFRESH_MS = 10 * 60 * 1000; // 10分
+  let refreshTimer = null;
+
   async function init() {
-    setDate();
     await Auth.init();
     document.getElementById('login-btn').addEventListener('click', () => Auth.login());
     document.getElementById('logout-btn').addEventListener('click', () => {
@@ -11,37 +13,33 @@ const App = (() => {
     });
   }
 
-  function setDate() {
-    const now = new Date();
-    const wd  = now.toLocaleDateString('ja-JP', { weekday: 'short' }).replace(/[()]/g, '');
-    const day = now.toLocaleDateString('ja-JP', { month: 'long', day: 'numeric' });
-    const el  = document.getElementById('login-date');
-    if (el) el.textContent = `${day} ${wd}`;
-  }
-
   function onLoginSuccess(profile) {
     document.getElementById('login-screen').classList.remove('active');
     document.getElementById('app-screen').classList.add('active');
 
+    // 日付ラベル
     const now = new Date();
-    document.getElementById('header-weekday').textContent =
-      now.toLocaleDateString('ja-JP', { weekday: 'long' }).replace(/曜日/, '');
-    document.getElementById('header-day').textContent =
-      now.toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric' });
+    document.getElementById('cal-date-label').textContent =
+      now.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
 
-    const av = document.getElementById('user-avatar');
-    if (profile?.picture) {
-      av.innerHTML = `<img src="${profile.picture}" alt="">`;
-    } else if (profile?.name) {
-      av.textContent = profile.name.charAt(0).toUpperCase();
-    }
+    // ユーザーアバターは不要なのでスキップ（左ペインにログアウトボタンのみ）
 
+    // 時計スタート
+    Clock.init();
+
+    // 天気取得
+    Weather.load();
+
+    // カレンダー初回 + 10分ごと自動更新
     Calendar.load();
+    if (refreshTimer) clearInterval(refreshTimer);
+    refreshTimer = setInterval(() => Calendar.load(), REFRESH_MS);
   }
 
   function showLogin() {
     document.getElementById('app-screen').classList.remove('active');
     document.getElementById('login-screen').classList.add('active');
+    if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
   }
 
   return { init, onLoginSuccess, showLogin };
