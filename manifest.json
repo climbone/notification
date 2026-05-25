@@ -1,13 +1,13 @@
 {
   "name": "My Dashboard",
   "short_name": "Dashboard",
-  "description": "GoogleカレンダーとGoogle Chatをまとめて確認",
+  "description": "今日の予定をシンプルに確認",
   "start_url": "/notification/",
   "scope": "/notification/",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#007AFF",
+  "orientation": "landscape-primary",
+  "background_color": "#0D0D12",
+  "theme_color": "#0D0D12",
   "icons": [
     {
       "src": "icons/icon-192.png",
